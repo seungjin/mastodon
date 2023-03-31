@@ -34,7 +34,12 @@ module WellKnown
     end
 
     def check_account_suspension
-      expires_in(3.minutes, public: true) && gone if @account.suspended_permanently?
+      gone if @account.suspended_permanently?
+    end
+
+    def gone
+      expires_in(3.minutes, public: true)
+      head 410
     end
 
     def bad_request
@@ -45,10 +50,6 @@ module WellKnown
     def not_found
       expires_in(3.minutes, public: true)
       head 404
-    end
-
-    def gone
-      head 410
     end
   end
 end

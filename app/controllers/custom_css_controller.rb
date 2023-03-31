@@ -8,8 +8,6 @@ class CustomCssController < ApplicationController
 
   skip_around_action :set_locale
 
-  before_action :set_cache_headers
-
   def show
     expires_in 3.minutes, public: true
     request.session_options[:skip] = true

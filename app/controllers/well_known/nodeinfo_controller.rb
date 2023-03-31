@@ -2,10 +2,6 @@
 
 module WellKnown
   class NodeInfoController < ActionController::Base
-    include CacheConcern
-
-    before_action { response.headers['Vary'] = 'Accept' }
-
     def index
       expires_in 3.days, public: true
       render json: {}, serializer: NodeInfo::DiscoverySerializer, adapter: NodeInfo::Adapter, root: 'nodeinfo'

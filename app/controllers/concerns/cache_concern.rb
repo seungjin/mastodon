@@ -155,8 +155,12 @@ module CacheConcern
     end
   end
 
-  def set_cache_headers
-    response.headers['Vary'] = public_fetch_mode? ? 'Accept' : 'Accept, Signature'
+  class_methods do
+    def vary_by(value)
+      before_action do |controller|
+        response.headers['Vary'] = value.respond_to?(:call) ? controller.instance_exec(&value) : value
+      end
+    end
   end
 
   def cache_collection(raw, klass)

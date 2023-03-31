@@ -8,6 +8,7 @@ class Api::V1::PollsController < Api::BaseController
   before_action :refresh_poll
 
   def show
+    expires_in 3.minutes, public: true unless user_signed_in?
     render json: @poll, serializer: REST::PollSerializer, include_results: true
   end
 

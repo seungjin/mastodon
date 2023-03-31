@@ -5,6 +5,7 @@ class Api::V1::DirectoriesController < Api::BaseController
   before_action :set_accounts
 
   def show
+    expires_in 3.minutes, public: true unless user_signed_in?
     render json: @accounts, each_serializer: REST::AccountSerializer
   end
 

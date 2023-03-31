@@ -6,6 +6,7 @@ class Api::V1::Instances::RulesController < Api::BaseController
   before_action :set_rules
 
   def index
+    expires_in 3.minutes, public: true
     render json: @rules, each_serializer: REST::RuleSerializer
   end
 

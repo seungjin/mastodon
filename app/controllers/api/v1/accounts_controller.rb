@@ -18,6 +18,7 @@ class Api::V1::AccountsController < Api::BaseController
   override_rate_limit_headers :follow, family: :follows
 
   def show
+    expires_in 3.minutes, public: true unless user_signed_in?
     render json: @account, serializer: REST::AccountSerializer
   end
 

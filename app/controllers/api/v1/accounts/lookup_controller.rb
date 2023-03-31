@@ -5,6 +5,7 @@ class Api::V1::Accounts::LookupController < Api::BaseController
   before_action :set_account
 
   def show
+    expires_in 3.minutes, public: true unless user_signed_in?
     render json: @account, serializer: REST::AccountSerializer
   end
 

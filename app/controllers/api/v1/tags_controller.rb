@@ -8,6 +8,7 @@ class Api::V1::TagsController < Api::BaseController
   override_rate_limit_headers :follow, family: :follows
 
   def show
+    expires_in 3.minutes, public: true unless user_signed_in?
     render json: @tag, serializer: REST::TagSerializer
   end
 

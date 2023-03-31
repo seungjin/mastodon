@@ -6,6 +6,7 @@ class Api::V1::Accounts::FollowingAccountsController < Api::BaseController
   after_action :insert_pagination_headers
 
   def index
+    expires_in 3.minutes, public: true unless user_signed_in?
     @accounts = load_accounts
     render json: @accounts, each_serializer: REST::AccountSerializer
   end

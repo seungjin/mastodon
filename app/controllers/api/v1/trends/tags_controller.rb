@@ -8,6 +8,7 @@ class Api::V1::Trends::TagsController < Api::BaseController
   DEFAULT_TAGS_LIMIT = 10
 
   def index
+    expires_in 3.minutes, public: true unless user_signed_in?
     render json: @tags, each_serializer: REST::TagSerializer, relationships: TagRelationshipsPresenter.new(@tags, current_user&.account_id)
   end
 
